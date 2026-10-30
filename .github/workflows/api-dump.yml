@@ -1,0 +1,43 @@
+name: api-dump
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ 'arena/**' ]
+    paths: [ '.github/workflows/api-dump.yml', 'build.gradle', 'gradle.properties' ]
+
+jobs:
+  dump:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - run: chmod +x ./gradlew
+      - name: resolve classpath
+        run: ./gradlew --no-daemon -q printClasspath > classpath.txt 2>&1 || true
+      - name: inspect
+        run: |
+          cat classpath.txt | head -50
+          mkdir -p dump
+          grep '^CP: ' classpath.txt | sed 's/^CP: //' > jars.txt
+          cat jars.txt
+          CP=$(paste -sd: jars.txt)
+          echo "$CP" > cp.txt
+          MCJAR=$(grep -i 'minecraft' jars.txt | grep -v sources | head -1)
+          echo "MCJAR=$MCJAR"
+          unzip -l "$MCJAR" | head -40 > dump/jar-list-head.txt
+          unzip -l "$MCJAR" | grep -c '\.class' > dump/classcount.txt || true
+          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > dump/classes.txt
+          unzip -l "$MCJAR" | grep -E '\.(png|json|ogg)$' | awk '{print $4}' | sort > dump/assets.txt || true
+          mkdir -p dump/assets && unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' 'assets/minecraft/textures/item/*' 'assets/minecraft/lang/en_us.json' -d dump/assets || true
+          for c in net.minecraft.resources.Identifier net.minecraft.core.registries.Registries net.minecraft.core.registries.BuiltInRegistries; do
+            javap -p -classpath "$CP" "$c" >> dump/key.txt 2>&1 || true
+          done
+          ls -R dump | head -50
+      - uses: actions/upload-artifact@v7
+        with:
+          name: api-dump
+          path: dump/

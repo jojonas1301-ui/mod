@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "villaeconomy",
+	"version": "${version}",
+	"name": "Vilas & Câmbio",
+	"description": "Vilas com níveis, novas profissões de aldeões, banqueiros com missões e um sistema de dinheiro em carteira (notas de 10, 20, 50, 100 e 200). Vilas no Overworld e no Nether, com trocas próprio para piglins em ouro.",
+	"authors": [
+		"jonas"
+	],
+	"contact": {
+		"homepage": "https://github.com/jojonas1301-ui/mod",
+		"sources": "https://github.com/jojonas1301-ui/mod"
+	},
+	"license": "MIT",
+	"icon": "assets/villaeconomy/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.jonas.villaeconomy.VilaEconomy"
+		],
+		"client": [
+			"com.jonas.villaeconomy.client.VilaEconomyClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
