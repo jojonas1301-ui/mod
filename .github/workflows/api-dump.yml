@@ -29,6 +29,10 @@ jobs:
         run: ./gradlew --no-daemon build > build-log.txt 2>&1 || true
       - name: inspect
         run: |
+          set +e
+          mkdir -p tools/dump/javap tools/dump/assets
+          exec > >(tee -a tools/dump/DEBUG-inspect.txt) 2>&1
+          set -x
           mkdir -p tools/dump/javap tools/dump/assets
           find ~/.gradle/caches -name '*.jar' 2>/dev/null | grep -iv 'wrapper' | sort > tools/dump/DEBUG-jars.txt
           tail -40 build-log.txt > tools/dump/DEBUG-build.txt
@@ -62,7 +66,9 @@ jobs:
           rm -rf tools/dump/assets/minecraft/textures/item/* 2>/dev/null || true
           find tools/dump -type f | head -50
       - name: commit dump
+        if: always()
         run: |
+          set +e
           git config user.email "ci@example.com"
           git config user.name "api-dump-ci"
           git add -A tools/dump
