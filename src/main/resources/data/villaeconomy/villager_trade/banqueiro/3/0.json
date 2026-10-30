@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "villaeconomy:nota200",
+    "count": 1
+  },
+  "gives": {
+    "id": "villaeconomy:nota100",
+    "count": 2
+  },
+  "max_uses": 10,
+  "xp": 3,
+  "reputation_discount": 0.05
+}

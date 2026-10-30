@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "villaeconomy:blocks/balcao_banqueiro",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "villaeconomy:balcao_banqueiro"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

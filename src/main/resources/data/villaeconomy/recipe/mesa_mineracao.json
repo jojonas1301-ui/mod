@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "C C",
+    "SSS"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "C": "minecraft:copper_ingot",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "villaeconomy:mesa_mineracao",
+    "count": 1
+  }
+}

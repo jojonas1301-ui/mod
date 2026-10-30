@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "G": "minecraft:gold_block",
+    "B": "minecraft:polished_blackstone"
+  },
+  "result": {
+    "id": "villaeconomy:forja_ouro",
+    "count": 1
+  }
+}

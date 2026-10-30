@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "villaeconomy:nota100",
+    "count": 1
+  },
+  "gives": {
+    "id": "minecraft:magma_cream",
+    "count": 3
+  },
+  "max_uses": 8,
+  "xp": 3,
+  "reputation_discount": 0.05
+}

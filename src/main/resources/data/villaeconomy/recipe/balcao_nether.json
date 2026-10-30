@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:blackstone"
+  },
+  "result": {
+    "id": "villaeconomy:balcao_nether",
+    "count": 1
+  }
+}

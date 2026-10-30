@@ -1,0 +1,93 @@
+name: api-dump
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ 'arena/**' ]
+    paths:
+      - '.github/workflows/api-dump.yml'
+      - 'build.gradle'
+      - 'gradle.properties'
+      - 'tools/dump-request.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  dump:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - run: chmod +x ./gradlew
+      - name: compile project (fills gradle caches)
+        run: ./gradlew --no-daemon build > build-log.txt 2>&1 || true
+      - name: inspect
+        run: |
+          set +e
+          mkdir -p tools/dump/javap tools/dump/assets
+          exec > >(tee -a tools/dump/DEBUG-inspect.txt) 2>&1
+          set -x
+          tail -60 build-log.txt > tools/dump/DEBUG-build.txt
+          find ~/.gradle/caches -name '*.jar' 2>/dev/null | grep -iv wrapper | sort > raw-jars.txt
+          grep -v 'sources' raw-jars.txt > jars.txt
+          MCJAR=""
+          CLIENTJAR=""
+          ASSETJAR=""
+          for j in $(cat jars.txt); do
+            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then MCJAR="$j"; fi
+            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/client/Minecraft.class'; then CLIENTJAR="$j"; fi
+            if unzip -l "$j" 2>/dev/null | grep -q 'assets/minecraft/textures/entity/villager/type/plains.png'; then ASSETJAR="$j"; fi
+          done
+          CP="$MCJAR:$CLIENTJAR"
+          for j in $(grep -i 'fabric' jars.txt | grep -vi 'loom'); do CP="$CP:$j"; done
+          echo "MCJAR=$MCJAR"; echo "CLIENTJAR=$CLIENTJAR"; echo "CP=$CP" > tools/dump/DEBUG-cp.txt
+          for j in "$MCJAR" "$CLIENTJAR"; do unzip -l "$j" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##'; done | sort -u > tools/dump/mc-classes.txt
+          for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
+            javap -p -classpath "$CP" "$c" > "tools/dump/javap/$(echo $c | tr '.' '_').txt" 2>&1
+          done
+          if [ -n "$ASSETJAR" ]; then
+            unzip -l "$ASSETJAR" | grep -E 'assets/minecraft/(textures|lang|models|items)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/items/paper.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/models/item/paper.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/items/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/models/item/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/paper.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/gold_ingot.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/emerald.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/recipe/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/worldgen/placed_feature/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/worldgen/configured_feature/*' -d tools/dump/assets
+          fi
+          for j in $(cat jars.txt); do
+            unzip -l "$j" 2>/dev/null | grep -iE 'data/minecraft/.*(trade|barter)' | awk '{print $4}' >> tools/dump/data-trade-list.txt
+          done
+          sort -u -o tools/dump/data-trade-list.txt tools/dump/data-trade-list.txt
+          for j in $(cat jars.txt); do
+            unzip -q -o "$j" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' 'data/minecraft/loot_table/*piglin*' -d tools/dump/data 2>/dev/null
+          done
+          for j in $(grep -i 'fabric' jars.txt | grep -vi loom); do
+            unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' >> tools/dump/fabric-api-classes.txt
+          done
+          sort -u -o tools/dump/fabric-api-classes.txt tools/dump/fabric-api-classes.txt
+          du -sh tools/dump
+          find tools/dump -type f | wc -l
+      - name: commit dump
+        if: always()
+        run: |
+          set +e
+          git config user.email "ci@example.com"
+          git config user.name "api-dump-ci"
+          git add -A tools/dump
+          git diff --cached --quiet || git commit -m "chore: update api dump [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}

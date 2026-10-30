@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "minecraft:gold_block",
+    "count": 4
+  },
+  "gives": {
+    "id": "minecraft:netherite_scrap",
+    "count": 2
+  },
+  "max_uses": 4,
+  "xp": 5,
+  "reputation_discount": 0.05
+}

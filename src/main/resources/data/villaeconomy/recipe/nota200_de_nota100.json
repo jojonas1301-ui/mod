@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "villaeconomy:nota100",
+    "villaeconomy:nota100"
+  ],
+  "result": {
+    "id": "villaeconomy:nota200",
+    "count": 1
+  }
+}

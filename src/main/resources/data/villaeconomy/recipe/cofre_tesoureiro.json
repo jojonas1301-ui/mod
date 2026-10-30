@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "GBG",
+    "IGI"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:barrel"
+  },
+  "result": {
+    "id": "villaeconomy:cofre_tesoureiro",
+    "count": 1
+  }
+}

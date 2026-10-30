@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "GGG",
+    "SSS"
+  ],
+  "key": {
+    "B": "minecraft:glass_bottle",
+    "G": "minecraft:gold_nugget",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "villaeconomy:alambique",
+    "count": 1
+  }
+}
