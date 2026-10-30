@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
 
 /**
@@ -146,12 +147,17 @@ public final class BankService {
 
 		for (ItemStack stack : notes) {
 			if (!player.getInventory().add(stack)) {
-				player.drop(stack, false);
+				dropAt(player, stack);
 			}
 		}
 
 		player.sendSystemMessage(Component.literal("§aSaque de " + Notes.money(value) + " §7em notas."));
 		return true;
+	}
+
+	private static void dropAt(ServerPlayer player, ItemStack stack) {
+		ItemEntity item = new ItemEntity(player.level(), player.getX(), player.getY() + 1.0D, player.getZ(), stack);
+		player.level().addFreshEntity(item);
 	}
 
 	public static boolean buy(ServerPlayer player, String id, int quantity) {
@@ -173,7 +179,7 @@ public final class BankService {
 		ItemStack stack = new ItemStack(entry.item(), entry.count() * times);
 
 		if (!player.getInventory().add(stack)) {
-			player.drop(stack, false);
+			dropAt(player, stack);
 		}
 
 		player.sendSystemMessage(Component.literal("§aComprado " + (entry.count() * times) + "x ")

@@ -153,7 +153,7 @@ public final class VillageManager {
 		for (Villager villager : villagers) {
 			VillagerProfession profession = Villages.professionOf(villager);
 
-			if (profession != VillagerProfession.NONE.value() && profession != VillagerProfession.NITWIT.value()
+			if (profession != Villages.none() && profession != Villages.nitwit()
 					&& !present.contains(profession)) {
 				present.add(profession);
 			}

@@ -32,8 +32,17 @@ public final class Villages {
 
 	public static boolean isUnemployed(Villager villager) {
 		VillagerProfession profession = professionOf(villager);
-		return profession == net.minecraft.world.entity.npc.villager.VillagerProfession.NONE.value()
-				|| profession == net.minecraft.world.entity.npc.villager.VillagerProfession.NITWIT.value();
+		return profession == none() || profession == nitwit();
+	}
+
+	public static VillagerProfession none() {
+		return net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION
+				.getValue(VillagerProfession.NONE);
+	}
+
+	public static VillagerProfession nitwit() {
+		return net.minecraft.core.registries.BuiltInRegistries.VILLAGER_PROFESSION
+				.getValue(VillagerProfession.NITWIT);
 	}
 
 	public static List<Villager> villagersNear(ServerPlayer player, double radius) {

@@ -57,7 +57,7 @@ public final class Wallet {
 
 	public static void actionBar(Player player, long amount) {
 		if (player instanceof ServerPlayer serverPlayer) {
-			serverPlayer.displayClientMessage(
+			serverPlayer.sendSystemMessage(
 					Component.literal("§6$§e" + Notes.format(amount) + " §7na carteira"), true);
 		}
 	}

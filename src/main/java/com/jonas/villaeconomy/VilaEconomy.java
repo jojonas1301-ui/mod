@@ -12,7 +12,7 @@ import com.jonas.villaeconomy.registry.ModItems;
 import com.jonas.villaeconomy.registry.ModPoiTypes;
 import com.jonas.villaeconomy.registry.ModProfessions;
 import com.jonas.villaeconomy.registry.ModVillagerTypes;
-import com.jonas.villaeconomy.registry.ModWorldgen;
+import com.jonas.villaeconomy.worldgen.ModWorldgen;
 import com.jonas.villaeconomy.village.VillageManager;
 
 import net.fabricmc.api.ModInitializer;
