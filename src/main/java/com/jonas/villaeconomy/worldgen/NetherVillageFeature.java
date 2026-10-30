@@ -1,5 +1,6 @@
 package com.jonas.villaeconomy.worldgen;
 
+import com.jonas.villaeconomy.entity.ModEntityTypes;
 import com.jonas.villaeconomy.registry.ModBlocks;
 import com.jonas.villaeconomy.registry.ModProfessions;
 import com.jonas.villaeconomy.registry.ModVillagerTypes;
