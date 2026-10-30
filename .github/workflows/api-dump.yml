@@ -38,29 +38,33 @@ jobs:
           grep -v 'sources' raw-jars.txt > jars.txt
           MCJAR=""
           CLIENTJAR=""
+          ASSETJAR=""
           for j in $(cat jars.txt); do
             if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then MCJAR="$j"; fi
-            if unzip -l "$j" 2>/dev/null | grep -q 'assets/minecraft/lang/en_us.json'; then CLIENTJAR="$j"; fi
+            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/client/Minecraft.class'; then CLIENTJAR="$j"; fi
+            if unzip -l "$j" 2>/dev/null | grep -q 'assets/minecraft/textures/entity/villager/type/plains.png'; then ASSETJAR="$j"; fi
           done
-          CP="$MCJAR"
+          CP="$MCJAR:$CLIENTJAR"
           for j in $(grep -i 'fabric' jars.txt | grep -vi 'loom'); do CP="$CP:$j"; done
           echo "MCJAR=$MCJAR"; echo "CLIENTJAR=$CLIENTJAR"; echo "CP=$CP" > tools/dump/DEBUG-cp.txt
-          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
+          for j in "$MCJAR" "$CLIENTJAR"; do unzip -l "$j" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##'; done | sort -u > tools/dump/mc-classes.txt
           for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
             javap -p -classpath "$CP" "$c" > "tools/dump/javap/$(echo $c | tr '.' '_').txt" 2>&1
           done
-          if [ -n "$CLIENTJAR" ]; then
-            unzip -l "$CLIENTJAR" | grep -E 'assets/minecraft/(textures|lang|models|items)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/items/paper.json' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/models/item/paper.json' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/items/gold_ingot.json' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/models/item/gold_ingot.json' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/paper.png' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/gold_ingot.png' -d tools/dump/assets
-            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/emerald.png' -d tools/dump/assets
+          if [ -n "$ASSETJAR" ]; then
+            unzip -l "$ASSETJAR" | grep -E 'assets/minecraft/(textures|lang|models|items)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/items/paper.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/models/item/paper.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/items/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/models/item/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/paper.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/gold_ingot.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/emerald.png' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
           fi
           for j in $(grep -i 'fabric' jars.txt | grep -vi loom); do
             unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' >> tools/dump/fabric-api-classes.txt
