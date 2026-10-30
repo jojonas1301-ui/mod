@@ -1,0 +1,18 @@
+Compiled from "Merchant.java"
+public interface net.minecraft.world.item.trading.Merchant {
+  public abstract void setTradingPlayer(net.minecraft.world.entity.player.Player);
+  public abstract net.minecraft.world.entity.player.Player getTradingPlayer();
+  public abstract net.minecraft.world.item.trading.MerchantOffers getOffers();
+  public abstract void overrideOffers(net.minecraft.world.item.trading.MerchantOffers);
+  public abstract void notifyTrade(net.minecraft.world.item.trading.MerchantOffer);
+  public abstract void notifyTradeUpdated(net.minecraft.world.item.ItemStack);
+  public abstract int getVillagerXp();
+  public abstract void overrideXp(int);
+  public abstract boolean showProgressBar();
+  public abstract net.minecraft.sounds.SoundEvent getNotifyTradeSound();
+  public default boolean canRestock();
+  public default void openTradingScreen(net.minecraft.world.entity.player.Player, net.minecraft.network.chat.Component, int);
+  public abstract boolean isClientSide();
+  public abstract boolean stillValid(net.minecraft.world.entity.player.Player);
+  private net.minecraft.world.inventory.AbstractContainerMenu lambda$openTradingScreen$0(int, net.minecraft.world.entity.player.Inventory, net.minecraft.world.entity.player.Player);
+}

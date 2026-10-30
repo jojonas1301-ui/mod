@@ -1,0 +1,7 @@
+Compiled from "PlacementModifier.java"
+public interface net.minecraft.world.level.levelgen.placement.PlacementModifier {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.levelgen.placement.PlacementModifier> CODEC;
+  public abstract void modify(net.minecraft.world.level.levelgen.placement.PlacementContext, net.minecraft.util.RandomSource, net.minecraft.core.BlockPos, java.util.function.Consumer<net.minecraft.core.BlockPos>);
+  public abstract com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier> codec();
+  static {};
+}

@@ -1,0 +1,11 @@
+Compiled from "BiomeModifications.java"
+public final class net.fabricmc.fabric.api.biome.v1.BiomeModifications {
+  private net.fabricmc.fabric.api.biome.v1.BiomeModifications();
+  public static void addFeature(java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext>, net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.placement.PlacedFeature>);
+  public static void addCarver(java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext>, net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.carver.WorldCarver>);
+  public static void addSpawn(java.util.function.Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext>, net.minecraft.world.entity.MobCategory, net.minecraft.world.entity.EntityType<?>, int, int, int);
+  public static net.fabricmc.fabric.api.biome.v1.BiomeModification create(net.minecraft.resources.Identifier);
+  private static void lambda$addSpawn$0(int, int, net.minecraft.world.entity.MobCategory, net.minecraft.world.entity.EntityType, int, net.fabricmc.fabric.api.biome.v1.BiomeModificationContext);
+  private static void lambda$addCarver$0(net.minecraft.resources.ResourceKey, net.fabricmc.fabric.api.biome.v1.BiomeModificationContext);
+  private static void lambda$addFeature$0(net.minecraft.world.level.levelgen.GenerationStep$Decoration, net.minecraft.resources.ResourceKey, net.fabricmc.fabric.api.biome.v1.BiomeModificationContext);
+}

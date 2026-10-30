@@ -1,0 +1,9 @@
+Compiled from "CreativeModeTabEvents.java"
+public final class net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutputAll> MODIFY_OUTPUT_ALL;
+  private net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents();
+  public static net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutput> modifyOutputEvent(net.minecraft.resources.ResourceKey<net.minecraft.world.item.CreativeModeTab>);
+  private static net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutputAll lambda$static$0(net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutputAll[]);
+  private static void lambda$static$1(net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents$ModifyOutputAll[], net.minecraft.world.item.CreativeModeTab, net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput);
+  static {};
+}

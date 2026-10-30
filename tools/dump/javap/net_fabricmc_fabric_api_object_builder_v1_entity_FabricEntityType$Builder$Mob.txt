@@ -1,0 +1,6 @@
+Compiled from "FabricEntityType.java"
+public interface net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T extends net.minecraft.world.entity.Mob> extends net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living<T> {
+  public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T> spawnPlacement(net.minecraft.world.entity.SpawnPlacementType, net.minecraft.world.level.levelgen.Heightmap$Types, net.minecraft.world.entity.SpawnPlacements$SpawnPredicate<T>);
+  public abstract net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T> defaultAttributes(java.util.function.Supplier<net.minecraft.world.entity.ai.attributes.AttributeSupplier$Builder>);
+  public default net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living defaultAttributes(java.util.function.Supplier);
+}

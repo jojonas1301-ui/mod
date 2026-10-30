@@ -1,0 +1,17 @@
+Compiled from "PoiType.java"
+public final class net.minecraft.world.entity.ai.village.poi.PoiType extends java.lang.Record {
+  private final java.util.Set<net.minecraft.world.level.block.state.BlockState> matchingStates;
+  private final int maxTickets;
+  private final int validRange;
+  public static final java.util.function.Predicate<net.minecraft.core.Holder<net.minecraft.world.entity.ai.village.poi.PoiType>> NONE;
+  public net.minecraft.world.entity.ai.village.poi.PoiType(java.util.Set<net.minecraft.world.level.block.state.BlockState>, int, int);
+  public boolean is(net.minecraft.world.level.block.state.BlockState);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public java.util.Set<net.minecraft.world.level.block.state.BlockState> matchingStates();
+  public int maxTickets();
+  public int validRange();
+  private static boolean lambda$static$0(net.minecraft.core.Holder);
+  static {};
+}

@@ -1,0 +1,20 @@
+Compiled from "TradeCost.java"
+public final class net.minecraft.world.item.trading.TradeCost extends java.lang.Record implements net.minecraft.world.level.storage.loot.Validatable {
+  private final net.minecraft.core.Holder<net.minecraft.world.item.Item> item;
+  private final net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider> count;
+  private final net.minecraft.core.component.DataComponentExactPredicate components;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.trading.TradeCost> CODEC;
+  public net.minecraft.world.item.trading.TradeCost(net.minecraft.world.level.ItemLike, int);
+  public net.minecraft.world.item.trading.TradeCost(net.minecraft.world.level.ItemLike, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>);
+  public net.minecraft.world.item.trading.TradeCost(net.minecraft.core.Holder<net.minecraft.world.item.Item>, net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider>, net.minecraft.core.component.DataComponentExactPredicate);
+  public net.minecraft.world.item.trading.ItemCost toItemCost(net.minecraft.world.level.storage.loot.LootContext, int);
+  public void validate(net.minecraft.world.level.storage.loot.ValidationContext);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.core.Holder<net.minecraft.world.item.Item> item();
+  public net.minecraft.core.Holder<net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider> count();
+  public net.minecraft.core.component.DataComponentExactPredicate components();
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  static {};
+}

@@ -1,0 +1,23 @@
+Compiled from "ServerPlayNetworking.java"
+public final class net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking {
+  public static <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> boolean registerGlobalReceiver(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$PlayPayloadHandler<T>);
+  public static net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$PlayPayloadHandler<?> unregisterGlobalReceiver(net.minecraft.resources.Identifier);
+  public static java.util.Set<net.minecraft.resources.Identifier> getGlobalReceivers();
+  public static <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> boolean registerReceiver(net.minecraft.server.network.ServerGamePacketListenerImpl, net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$PlayPayloadHandler<T>);
+  public static net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$PlayPayloadHandler<?> unregisterReceiver(net.minecraft.server.network.ServerGamePacketListenerImpl, net.minecraft.resources.Identifier);
+  public static java.util.Set<net.minecraft.resources.Identifier> getReceived(net.minecraft.server.level.ServerPlayer);
+  public static java.util.Set<net.minecraft.resources.Identifier> getReceived(net.minecraft.server.network.ServerGamePacketListenerImpl);
+  public static java.util.Set<net.minecraft.resources.Identifier> getSendable(net.minecraft.server.level.ServerPlayer);
+  public static java.util.Set<net.minecraft.resources.Identifier> getSendable(net.minecraft.server.network.ServerGamePacketListenerImpl);
+  public static boolean canSend(net.minecraft.server.level.ServerPlayer, net.minecraft.resources.Identifier);
+  public static boolean canSend(net.minecraft.server.level.ServerPlayer, net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<?>);
+  public static boolean canSend(net.minecraft.server.network.ServerGamePacketListenerImpl, net.minecraft.resources.Identifier);
+  public static boolean canSend(net.minecraft.server.network.ServerGamePacketListenerImpl, net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<?>);
+  public static <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.common.ClientCommonPacketListener> createClientboundPacket(T);
+  public static net.fabricmc.fabric.api.networking.v1.PacketSender getSender(net.minecraft.server.level.ServerPlayer);
+  public static net.fabricmc.fabric.api.networking.v1.PacketSender getSender(net.minecraft.server.network.ServerGamePacketListenerImpl);
+  public static void send(net.minecraft.server.level.ServerPlayer, net.minecraft.network.protocol.common.custom.CustomPacketPayload);
+  public static void reconfigure(net.minecraft.server.level.ServerPlayer);
+  public static void reconfigure(net.minecraft.server.network.ServerGamePacketListenerImpl);
+  private net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking();
+}

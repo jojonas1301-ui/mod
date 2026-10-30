@@ -1,0 +1,12 @@
+Compiled from "Dialogs.java"
+public class net.minecraft.server.dialog.Dialogs {
+  public static final net.minecraft.resources.ResourceKey<net.minecraft.server.dialog.Dialog> SERVER_LINKS;
+  public static final net.minecraft.resources.ResourceKey<net.minecraft.server.dialog.Dialog> CUSTOM_OPTIONS;
+  public static final net.minecraft.resources.ResourceKey<net.minecraft.server.dialog.Dialog> QUICK_ACTIONS;
+  public static final int BIG_BUTTON_WIDTH;
+  private static final net.minecraft.server.dialog.ActionButton DEFAULT_BACK_BUTTON;
+  public net.minecraft.server.dialog.Dialogs();
+  private static net.minecraft.resources.ResourceKey<net.minecraft.server.dialog.Dialog> create(java.lang.String);
+  public static void bootstrap(net.minecraft.data.worldgen.BootstrapContext<net.minecraft.server.dialog.Dialog>);
+  static {};
+}

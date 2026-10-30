@@ -1,0 +1,10 @@
+Compiled from "ItemEvents.java"
+public interface net.fabricmc.fabric.api.event.player.ItemEvents {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.player.ItemEvents$UseOnCallback> USE_ON;
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.event.player.ItemEvents$UseCallback> USE;
+  private static net.fabricmc.fabric.api.event.player.ItemEvents$UseCallback lambda$static$2(net.fabricmc.fabric.api.event.player.ItemEvents$UseCallback[]);
+  private static net.minecraft.world.InteractionResult lambda$static$3(net.fabricmc.fabric.api.event.player.ItemEvents$UseCallback[], net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+  private static net.fabricmc.fabric.api.event.player.ItemEvents$UseOnCallback lambda$static$0(net.fabricmc.fabric.api.event.player.ItemEvents$UseOnCallback[]);
+  private static net.minecraft.world.InteractionResult lambda$static$1(net.fabricmc.fabric.api.event.player.ItemEvents$UseOnCallback[], net.minecraft.world.item.context.UseOnContext);
+  static {};
+}

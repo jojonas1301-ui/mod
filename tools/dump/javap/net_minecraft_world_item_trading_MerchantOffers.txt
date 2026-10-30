@@ -1,0 +1,11 @@
+Compiled from "MerchantOffers.java"
+public class net.minecraft.world.item.trading.MerchantOffers extends java.util.ArrayList<net.minecraft.world.item.trading.MerchantOffer> {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.trading.MerchantOffers> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, net.minecraft.world.item.trading.MerchantOffers> STREAM_CODEC;
+  public net.minecraft.world.item.trading.MerchantOffers();
+  private net.minecraft.world.item.trading.MerchantOffers(int);
+  private net.minecraft.world.item.trading.MerchantOffers(java.util.Collection<net.minecraft.world.item.trading.MerchantOffer>);
+  public net.minecraft.world.item.trading.MerchantOffer getRecipeFor(net.minecraft.world.item.ItemStack, net.minecraft.world.item.ItemStack, int);
+  public net.minecraft.world.item.trading.MerchantOffers copy();
+  static {};
+}

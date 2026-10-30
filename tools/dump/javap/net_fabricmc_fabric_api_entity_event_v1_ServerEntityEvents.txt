@@ -1,0 +1,1 @@
+Error: class not found: net.fabricmc.fabric.api.entity.event.v1.ServerEntityEvents

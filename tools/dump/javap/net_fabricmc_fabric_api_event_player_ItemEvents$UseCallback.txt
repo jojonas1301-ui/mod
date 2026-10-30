@@ -1,0 +1,4 @@
+Compiled from "ItemEvents.java"
+public interface net.fabricmc.fabric.api.event.player.ItemEvents$UseCallback {
+  public abstract net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level, net.minecraft.world.entity.player.Player, net.minecraft.world.InteractionHand);
+}

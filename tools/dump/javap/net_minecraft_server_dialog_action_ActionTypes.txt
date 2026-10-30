@@ -1,0 +1,6 @@
+Compiled from "ActionTypes.java"
+public class net.minecraft.server.dialog.action.ActionTypes {
+  public net.minecraft.server.dialog.action.ActionTypes();
+  public static com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action> bootstrap(net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.action.Action>>);
+  private static void lambda$bootstrap$0(net.minecraft.core.Registry, net.minecraft.network.chat.ClickEvent$Action, com.mojang.serialization.MapCodec);
+}

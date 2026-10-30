@@ -1,0 +1,5 @@
+Compiled from "DialogTypes.java"
+public class net.minecraft.server.dialog.DialogTypes {
+  public net.minecraft.server.dialog.DialogTypes();
+  public static com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog> bootstrap(net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.server.dialog.Dialog>>);
+}
