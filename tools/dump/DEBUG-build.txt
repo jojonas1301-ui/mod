@@ -20,9 +20,9 @@ Fabric Loom: 1.19.3
 
 > Task :processClientResources NO-SOURCE
 > Task :processIncludeJars
-> Task :processTestResources NO-SOURCE
-> Task :validateAccessWidener NO-SOURCE
 > Task :sourcesJar
+> Task :validateAccessWidener NO-SOURCE
+> Task :processTestResources NO-SOURCE
 > Task :processResources
 > Task :compileJava
 > Task :classes
@@ -36,6 +36,6 @@ Fabric Loom: 1.19.3
 > Task :assemble
 > Task :build
 
-BUILD SUCCESSFUL in 42s
+BUILD SUCCESSFUL in 38s
 5 actionable tasks: 5 executed
 Configuration cache entry stored.
