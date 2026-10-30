@@ -1,0 +1,9 @@
+Compiled from "VillagerInteractionRegistries.java"
+public final class net.fabricmc.fabric.api.registry.VillagerInteractionRegistries {
+  private static final org.slf4j.Logger LOGGER;
+  private net.fabricmc.fabric.api.registry.VillagerInteractionRegistries();
+  public static void registerGatherableItem(net.minecraft.world.level.ItemLike);
+  public static void registerCompostable(net.minecraft.world.level.ItemLike);
+  public static void registerGiftLootTable(net.minecraft.resources.ResourceKey<net.minecraft.world.entity.npc.villager.VillagerProfession>, net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>);
+  static {};
+}

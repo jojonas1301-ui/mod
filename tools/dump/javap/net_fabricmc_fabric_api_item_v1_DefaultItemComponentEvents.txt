@@ -1,0 +1,8 @@
+Compiled from "DefaultItemComponentEvents.java"
+public final class net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents {
+  public static final net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyCallback> MODIFY;
+  private net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents();
+  private static net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyCallback lambda$static$0(net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyCallback[]);
+  private static void lambda$static$1(net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyCallback[], net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents$ModifyContext);
+  static {};
+}

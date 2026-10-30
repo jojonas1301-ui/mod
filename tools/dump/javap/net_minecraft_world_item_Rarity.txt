@@ -1,0 +1,23 @@
+Compiled from "Rarity.java"
+public final class net.minecraft.world.item.Rarity extends java.lang.Enum<net.minecraft.world.item.Rarity> implements net.minecraft.util.StringRepresentable {
+  public static final net.minecraft.world.item.Rarity COMMON;
+  public static final net.minecraft.world.item.Rarity UNCOMMON;
+  public static final net.minecraft.world.item.Rarity RARE;
+  public static final net.minecraft.world.item.Rarity EPIC;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.item.Rarity> CODEC;
+  public static final java.util.function.IntFunction<net.minecraft.world.item.Rarity> BY_ID;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.item.Rarity> STREAM_CODEC;
+  private final int id;
+  private final java.lang.String name;
+  private final net.minecraft.ChatFormatting color;
+  private static final net.minecraft.world.item.Rarity[] $VALUES;
+  public static net.minecraft.world.item.Rarity[] values();
+  public static net.minecraft.world.item.Rarity valueOf(java.lang.String);
+  private net.minecraft.world.item.Rarity(int, java.lang.String, net.minecraft.ChatFormatting);
+  public net.minecraft.ChatFormatting color();
+  public java.lang.String getSerializedName();
+  private static net.minecraft.world.item.Rarity[] $values();
+  private static int lambda$static$1(net.minecraft.world.item.Rarity);
+  private static int lambda$static$0(net.minecraft.world.item.Rarity);
+  static {};
+}
