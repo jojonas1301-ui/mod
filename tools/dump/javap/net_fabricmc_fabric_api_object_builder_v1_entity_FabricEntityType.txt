@@ -1,3 +1,0 @@
-Compiled from "FabricEntityType.java"
-public interface net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType {
-}

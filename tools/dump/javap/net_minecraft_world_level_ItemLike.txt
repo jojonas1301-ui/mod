@@ -1,4 +1,0 @@
-Compiled from "ItemLike.java"
-public interface net.minecraft.world.level.ItemLike {
-  public abstract net.minecraft.world.item.Item asItem();
-}

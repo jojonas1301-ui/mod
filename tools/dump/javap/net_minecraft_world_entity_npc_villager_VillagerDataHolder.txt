@@ -1,8 +1,0 @@
-Compiled from "VillagerDataHolder.java"
-public interface net.minecraft.world.entity.npc.villager.VillagerDataHolder {
-  public abstract net.minecraft.world.entity.npc.villager.VillagerData getVillagerData();
-  public abstract void setVillagerData(net.minecraft.world.entity.npc.villager.VillagerData);
-  public abstract boolean getVillagerDataFinalized();
-  public abstract void setVillagerDataFinalized(boolean);
-  public default void finalizeVillagerType(net.minecraft.world.level.ServerLevelAccessor, net.minecraft.core.BlockPos);
-}

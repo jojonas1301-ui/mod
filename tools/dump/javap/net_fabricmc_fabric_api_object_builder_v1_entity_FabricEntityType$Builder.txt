@@ -1,7 +1,0 @@
-Compiled from "FabricEntityType.java"
-public interface net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder<T extends net.minecraft.world.entity.Entity> {
-  public default net.minecraft.world.entity.EntityType$Builder<T> alwaysUpdateVelocity(boolean);
-  public default net.minecraft.world.entity.EntityType$Builder<T> canPotentiallyExecuteCommands(boolean);
-  public static <T extends net.minecraft.world.entity.LivingEntity> net.minecraft.world.entity.EntityType$Builder<T> createLiving(net.minecraft.world.entity.EntityType$EntityFactory<T>, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator<net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Living<T>>);
-  public static <T extends net.minecraft.world.entity.Mob> net.minecraft.world.entity.EntityType$Builder<T> createMob(net.minecraft.world.entity.EntityType$EntityFactory<T>, net.minecraft.world.entity.MobCategory, java.util.function.UnaryOperator<net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType$Builder$Mob<T>>);
-}

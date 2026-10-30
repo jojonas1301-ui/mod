@@ -1,9 +1,0 @@
-Compiled from "AttachmentType.java"
-public interface net.fabricmc.fabric.api.attachment.v1.AttachmentType<A> {
-  public abstract net.minecraft.resources.Identifier identifier();
-  public abstract com.mojang.serialization.Codec<A> persistenceCodec();
-  public default boolean isPersistent();
-  public abstract java.util.function.Supplier<A> initializer();
-  public abstract boolean isSynced();
-  public abstract boolean copyOnDeath();
-}

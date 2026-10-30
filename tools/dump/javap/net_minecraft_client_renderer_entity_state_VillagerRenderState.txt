@@ -1,7 +1,0 @@
-Compiled from "VillagerRenderState.java"
-public class net.minecraft.client.renderer.entity.state.VillagerRenderState extends net.minecraft.client.renderer.entity.state.HoldingEntityRenderState implements net.minecraft.client.renderer.entity.state.VillagerDataHolderRenderState {
-  public boolean isUnhappy;
-  public net.minecraft.world.entity.npc.villager.VillagerData villagerData;
-  public net.minecraft.client.renderer.entity.state.VillagerRenderState();
-  public net.minecraft.world.entity.npc.villager.VillagerData getVillagerData();
-}

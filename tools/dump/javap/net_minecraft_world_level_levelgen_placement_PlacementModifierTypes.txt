@@ -1,4 +1,0 @@
-Compiled from "PlacementModifierTypes.java"
-public interface net.minecraft.world.level.levelgen.placement.PlacementModifierTypes {
-  public static com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier> bootstrap(net.minecraft.core.Registry<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.placement.PlacementModifier>>);
-}

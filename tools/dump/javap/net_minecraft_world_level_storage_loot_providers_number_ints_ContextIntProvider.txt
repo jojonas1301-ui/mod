@@ -1,8 +1,0 @@
-Compiled from "ContextIntProvider.java"
-public interface net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider extends net.minecraft.world.level.storage.loot.Validatable {
-  public abstract int getIntUnsafe(net.minecraft.world.level.storage.loot.LootContext) throws java.lang.ArithmeticException;
-  public default int getInt(net.minecraft.world.level.storage.loot.LootContext);
-  public abstract com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider> codec();
-  public static int floatToIntSafe(float);
-  public static int longToIntSafe(long);
-}
