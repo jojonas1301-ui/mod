@@ -26,30 +26,41 @@ Fabric Loom: 1.19.3
 > Task :processResources
 
 > Task :compileJava
+/home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/worldgen/NetherVillageFeature.java:170: error: package ModEntityTypes does not exist
+			var villager = ModEntityTypes.NETHER_VILLAGER.spawn(serverLevel, pos, EntitySpawnReason.STRUCTURE);
+			                             ^
 /home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/registry/ModPoiTypes.java:41: warning: [removal] PoiHelper in net.fabricmc.fabric.api.object.builder.v1.world.poi has been deprecated and marked for removal
 		PoiHelper.register(VilaEconomy.id(name), 1, 1, block);
 		^
 Note: /home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/economy/Notes.java uses or overrides a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
+1 error
 1 warning
 
-> Task :classes
-
-> Task :compileClientJava
-Note: /home/runner/work/mod/mod/src/client/java/com/jonas/villaeconomy/client/VilaEconomyClient.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-> Task :clientClasses
-> Task :compileTestJava NO-SOURCE
-> Task :testClasses UP-TO-DATE
-> Task :test NO-SOURCE
-> Task :check UP-TO-DATE
-> Task :jar
-> Task :assemble
-> Task :build
+> Task :compileJava FAILED
 
 [Incubating] Problems report is available at: file:///home/runner/work/mod/mod/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 45s
-6 actionable tasks: 6 executed
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  /home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/worldgen/NetherVillageFeature.java:170: error: package ModEntityTypes does not exist
+  			var villager = ModEntityTypes.NETHER_VILLAGER.spawn(serverLevel, pos, EntitySpawnReason.STRUCTURE);
+  			                             ^
+  /home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/registry/ModPoiTypes.java:41: warning: [removal] PoiHelper in net.fabricmc.fabric.api.object.builder.v1.world.poi has been deprecated and marked for removal
+  		PoiHelper.register(VilaEconomy.id(name), 1, 1, block);
+  		^
+  Note: /home/runner/work/mod/mod/src/main/java/com/jonas/villaeconomy/economy/Notes.java uses or overrides a deprecated API.
+  Note: Recompile with -Xlint:deprecation for details.
+  1 error
+  1 warning
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 36s
+4 actionable tasks: 4 executed
 Configuration cache entry stored.
