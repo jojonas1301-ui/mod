@@ -34,9 +34,9 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :classes
 
 > Task :runServer
-[20:46:16] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 26.3 with Fabric Loader 0.20.1
-[20:46:16] [main/INFO] (FabricLoader/Mappings) Mappings not present!
-[20:46:17] [main/INFO] (FabricLoader) Loading 44 mods:
+[20:57:09] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 26.3 with Fabric Loader 0.20.1
+[20:57:09] [main/INFO] (FabricLoader/Mappings) Mappings not present!
+[20:57:09] [main/INFO] (FabricLoader) Loading 44 mods:
 	- fabric-advancement-api-v1 1.0.1+38c7a2d55d
 	- fabric-api 0.165.0+26.3
 	- fabric-api-base 2.0.6+fcdff87f5d
@@ -81,97 +81,47 @@ Note: Recompile with -Xlint:deprecation for details.
 	- minecraft 26.3
 	- mixinextras 0.5.5
 	- villaeconomy 1.0.0
-[20:46:17] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.5+mixin.0.8.7/cef8519a91129d0c21fa03bb9378f0e8ca810e5/sponge-mixin-0.17.5+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
-[20:46:17] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
-[20:46:26] [main/INFO] (VilasECambio) [Vilas & Câmbio] carregado com 10 profissões novas e 10 blocos de trabalho
-[20:46:26] [main/INFO] (Minecraft) Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[20:46:27] [Worker-Main-3/ERROR] (Minecraft) Registry loading errors:
-> Errors in registry minecraft:root:
->> Errors in element minecraft:villager_trade:
-java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:villager_trade]: [villaeconomy:alquimista/1/0, villaeconomy:alquimista/1/1, villaeconomy:alquimista/2/0, villaeconomy:alquimista/2/1, villaeconomy:alquimista/3/0, villaeconomy:alquimista/3/1, villaeconomy:alquimista/4/0, villaeconomy:alquimista/4/1, villaeconomy:alquimista/5/0, villaeconomy:alquimista/5/1, villaeconomy:banqueiro/1/0, villaeconomy:banqueiro/1/1, villaeconomy:banqueiro/2/0, villaeconomy:banqueiro/2/1, villaeconomy:banqueiro/3/0, villaeconomy:banqueiro/3/1, villaeconomy:banqueiro/4/0, villaeconomy:banqueiro/4/1, villaeconomy:banqueiro/5/0, villaeconomy:banqueiro/5/1, villaeconomy:banqueiro_nether/1/0, villaeconomy:banqueiro_nether/1/1, villaeconomy:banqueiro_nether/2/0, villaeconomy:banqueiro_nether/2/1, villaeconomy:banqueiro_nether/3/0, villaeconomy:banqueiro_nether/3/1, villaeconomy:banqueiro_nether/4/0, villaeconomy:banqueiro_nether/4/1, villaeconomy:banqueiro_nether/5/0, villaeconomy:banqueiro_nether/5/1, villaeconomy:cacador_reliquias/1/0, villaeconomy:cacador_reliquias/1/1, villaeconomy:cacador_reliquias/2/0, villaeconomy:cacador_reliquias/2/1, villaeconomy:cacador_reliquias/3/0, villaeconomy:cacador_reliquias/3/1, villaeconomy:cacador_reliquias/4/0, villaeconomy:cacador_reliquias/4/1, villaeconomy:cacador_reliquias/5/0, villaeconomy:cacador_reliquias/5/1, villaeconomy:ferreiro_ouro/1/0, villaeconomy:ferreiro_ouro/1/1, villaeconomy:ferreiro_ouro/2/0, villaeconomy:ferreiro_ouro/2/1, villaeconomy:ferreiro_ouro/3/0, villaeconomy:ferreiro_ouro/3/1, villaeconomy:ferreiro_ouro/4/0, villaeconomy:ferreiro_ouro/4/1, villaeconomy:ferreiro_ouro/5/0, villaeconomy:ferreiro_ouro/5/1, villaeconomy:guarda/1/0, villaeconomy:guarda/1/1, villaeconomy:guarda/2/0, villaeconomy:guarda/2/1, villaeconomy:guarda/3/0, villaeconomy:guarda/3/1, villaeconomy:guarda/4/0, villaeconomy:guarda/4/1, villaeconomy:guarda/5/0, villaeconomy:guarda/5/1, villaeconomy:joalheiro/1/0, villaeconomy:joalheiro/1/1, villaeconomy:joalheiro/2/0, villaeconomy:joalheiro/2/1, villaeconomy:joalheiro/3/0, villaeconomy:joalheiro/3/1, villaeconomy:joalheiro/4/0, villaeconomy:joalheiro/4/1, villaeconomy:joalheiro/5/0, villaeconomy:joalheiro/5/1, villaeconomy:leiloeiro/1/0, villaeconomy:leiloeiro/1/1, villaeconomy:leiloeiro/2/0, villaeconomy:leiloeiro/2/1, villaeconomy:leiloeiro/3/0, villaeconomy:leiloeiro/3/1, villaeconomy:leiloeiro/4/0, villaeconomy:leiloeiro/4/1, villaeconomy:leiloeiro/5/0, villaeconomy:leiloeiro/5/1, villaeconomy:mineiro/1/0, villaeconomy:mineiro/1/1, villaeconomy:mineiro/2/0, villaeconomy:mineiro/2/1, villaeconomy:mineiro/3/0, villaeconomy:mineiro/3/1, villaeconomy:mineiro/4/0, villaeconomy:mineiro/4/1, villaeconomy:mineiro/5/0, villaeconomy:mineiro/5/1, villaeconomy:tesoureiro/1/0, villaeconomy:tesoureiro/1/1, villaeconomy:tesoureiro/2/0, villaeconomy:tesoureiro/2/1, villaeconomy:tesoureiro/3/0, villaeconomy:tesoureiro/3/1, villaeconomy:tesoureiro/4/0, villaeconomy:tesoureiro/4/1, villaeconomy:tesoureiro/5/0, villaeconomy:tesoureiro/5/1]
-	at knot//net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
-	at knot//net.minecraft.resources.RegistryLoadTask.freezeRegistry(RegistryLoadTask.java:83)
-	at knot//net.minecraft.resources.RegistryDataLoader.lambda$load$3(RegistryDataLoader.java:261)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
-	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:635)
-	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
-	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:652)
-	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:658)
-	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:663)
-	at knot//net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:261)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$1$2(RegistryDataLoader.java:1065)
-	at java.base/jdk.internal.vm.ScopedValueContainer.callWithoutScope(ScopedValueContainer.java:162)
-	at java.base/jdk.internal.vm.ScopedValueContainer.call(ScopedValueContainer.java:147)
-	at java.base/java.lang.ScopedValue$Carrier.call(ScopedValue.java:419)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$0$1(RegistryDataLoader.java:1065)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
-	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:511)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
->> Errors in element minecraft:worldgen/feature:
-java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:worldgen/feature]: [villaeconomy:nether_village]
-	at knot//net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
-	at knot//net.minecraft.resources.RegistryLoadTask.freezeRegistry(RegistryLoadTask.java:83)
-	at knot//net.minecraft.resources.RegistryDataLoader.lambda$load$3(RegistryDataLoader.java:261)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
-	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:635)
-	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
-	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:652)
-	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:658)
-	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:663)
-	at knot//net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:261)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$1$2(RegistryDataLoader.java:1065)
-	at java.base/jdk.internal.vm.ScopedValueContainer.callWithoutScope(ScopedValueContainer.java:162)
-	at java.base/jdk.internal.vm.ScopedValueContainer.call(ScopedValueContainer.java:147)
-	at java.base/java.lang.ScopedValue$Carrier.call(ScopedValue.java:419)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$0$1(RegistryDataLoader.java:1065)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
-	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:511)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-
-[20:46:28] [main/WARN] (Minecraft) Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
-
-java.util.concurrent.ExecutionException: net.minecraft.ReportedException: Registry Loading
-	at java.base/java.util.concurrent.CompletableFuture.wrapInExecutionException(CompletableFuture.java:345)
-	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:440)
-	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2094)
-	at knot//net.minecraft.server.Main.main(Main.java:198)
-	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
-	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
-	at net.fabricmc.loader.impl.launch.knot.KnotServer.main(KnotServer.java:23)
-	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
-Caused by: net.minecraft.ReportedException: Registry Loading
-	at knot//net.minecraft.resources.RegistryDataLoader.createReportWithBriefInfo(RegistryDataLoader.java:329)
-	at knot//net.minecraft.resources.RegistryDataLoader.logErrors(RegistryDataLoader.java:294)
-	at knot//net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:263)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$1$2(RegistryDataLoader.java:1065)
-	at java.base/jdk.internal.vm.ScopedValueContainer.callWithoutScope(ScopedValueContainer.java:162)
-	at java.base/jdk.internal.vm.ScopedValueContainer.call(ScopedValueContainer.java:147)
-	at java.base/java.lang.ScopedValue$Carrier.call(ScopedValue.java:419)
-	at knot//net.minecraft.resources.RegistryDataLoader.md287269$fabric-registry-sync-v0$lambda$thenApplyAsync$0$1(RegistryDataLoader.java:1065)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
-	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:511)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Failed to load registries due to errors
-	at knot//net.minecraft.resources.RegistryDataLoader.createReportWithBriefInfo(RegistryDataLoader.java:313)
-	... 13 more
+[20:57:09] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.5+mixin.0.8.7/cef8519a91129d0c21fa03bb9378f0e8ca810e5/sponge-mixin-0.17.5+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+[20:57:09] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[20:57:14] [main/INFO] (VilasECambio) [Vilas & Câmbio] carregado com 10 profissões novas e 10 blocos de trabalho
+[20:57:14] [main/INFO] (Minecraft) Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[20:57:15] [Worker-Main-3/INFO] (Minecraft) No existing world data, creating new world
+[20:57:16] [Worker-Main-2/INFO] (Minecraft) Loaded 1866 advancements
+[20:57:16] [main/INFO] (BiomeModificationImpl) Applied 5 biome modifications to 5 of 67 new biomes in 5.127 ms
+[20:57:16] [Server thread/INFO] (Minecraft) Starting minecraft server version 26.3
+[20:57:16] [Server thread/INFO] (Minecraft) Loading properties
+[20:57:16] [Server thread/INFO] (Minecraft) Default game type: SURVIVAL
+[20:57:16] [Server thread/INFO] (Minecraft) Generating keypair
+[20:57:16] [Server thread/INFO] (Minecraft) Starting Minecraft server on *:25565
+[20:57:16] [Server thread/WARN] (Minecraft) **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[20:57:16] [Server thread/WARN] (Minecraft) The server will make no attempt to authenticate usernames. Beware.
+[20:57:16] [Server thread/WARN] (Minecraft) While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[20:57:16] [Server thread/WARN] (Minecraft) To change this, set "online-mode" to "true" in the server.properties file.
+[20:57:16] [Server thread/INFO] (Minecraft) Preparing level "world"
+[20:57:16] [Server thread/INFO] (Minecraft) Selecting global world spawn...
+[20:57:18] [Server thread/INFO] (Minecraft) Loading 0 persistent chunks...
+[20:57:18] [Server thread/INFO] (Minecraft) Preparing spawn area: 100%
+[20:57:18] [Server thread/INFO] (Minecraft) Time elapsed: 2001 ms
+[20:57:18] [Server thread/INFO] (Minecraft) Done (2.158s)! For help, type "help"
+[20:57:18] [Server thread/INFO] (Minecraft) Starting remote control listener
+[20:57:18] [Server thread/INFO] (Minecraft) Thread RCON Listener started
+[20:57:18] [Server thread/INFO] (Minecraft) RCON running on 0.0.0.0:25575
+[20:57:18] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[20:57:18] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[20:57:18] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[20:57:20] [RCON Listener #1/INFO] (Minecraft) Thread RCON Client /127.0.0.1 started
+[20:57:31] [Server thread/INFO] (Minecraft) Stopping server
+[20:57:31] [Server thread/INFO] (Minecraft) Saving players
+[20:57:31] [Server thread/INFO] (Minecraft) Saving worlds
+[20:57:31] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[20:57:31] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[20:57:31] [Server thread/INFO] (Minecraft) Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[20:57:31] [Server thread/INFO] (Minecraft) Thread RCON Listener stopped
+[20:57:31] [RCON Client /127.0.0.1 #2/INFO] (Minecraft) Thread RCON Client /127.0.0.1 shutting down
+[20:57:31] [Server thread/INFO] (Minecraft) Thread RCON Client /127.0.0.1 stopped
 
 [Incubating] Problems report is available at: file:///home/runner/work/mod/mod/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 56s
+BUILD SUCCESSFUL in 51s
 5 actionable tasks: 5 executed
 Configuration cache entry stored.
