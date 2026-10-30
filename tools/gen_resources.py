@@ -374,7 +374,7 @@ def generate_worldgen():
     write_json(os.path.join(DATA, "worldgen", "placed_feature", "nether_village.json"), {
         "feature": "villaeconomy:nether_village",
         "placement": [
-            {"type": "minecraft:rarity_filter", "chance": 16},
+            {"type": "minecraft:rarity_filter", "chance": 80},
             {"type": "minecraft:in_square"},
             {"type": "minecraft:height_range", "height": {
                 "type": "minecraft:uniform",

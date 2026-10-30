@@ -165,14 +165,19 @@ public class NetherVillageFeature implements Feature {
 
 		for (BlockPos pos : positions) {
 			if (!serverLevel.isLoaded(pos)) {
+				com.jonas.villaeconomy.VilaEconomy.LOGGER.warn("[Vilas & Câmbio] posição {} não carregada, aldeão não gerado", pos);
 				continue;
 			}
 
 			var villager = ModEntityTypes.NETHER_VILLAGER.spawn(serverLevel, pos, EntitySpawnReason.STRUCTURE);
 
 			if (villager == null) {
+				com.jonas.villaeconomy.VilaEconomy.LOGGER.warn("[Vilas & Câmbio] falha ao gerar aldeão em {}", pos);
 				continue;
 			}
+
+			com.jonas.villaeconomy.VilaEconomy.LOGGER.info("[Vilas & Câmbio] aldeão {} em {}",
+					professionHolder.value().name().getString(), pos);
 
 			villager.setVillagerData(villager.getVillagerData()
 					.withType(typeHolder)
