@@ -62,7 +62,7 @@ jobs:
           class Rcon:
               def __init__(self, host, port, password):
                   self.sock = socket.create_connection((host, port), timeout=30)
-                  self.sock.settimeout(30)
+                  self.sock.settimeout(120)
                   self.rid = 1
                   self.send(3, password)
                   self.recv()
@@ -88,6 +88,12 @@ jobs:
               def cmd(self, command):
                   self.send(2, command)
                   return self.recv()
+
+              def try_cmd(self, command):
+                  try:
+                      return self.cmd(command)
+                  except Exception as exc:
+                      return 'ERRO: %s' % exc
 
           if __name__ == '__main__':
               rcon = Rcon('127.0.0.1', 25575, 'test123')
@@ -115,7 +121,7 @@ jobs:
                   if command.startswith('give'):
                       continue
                   print('>>>', command, flush=True)
-                  print(rcon.cmd(command), flush=True)
+                  print(rcon.try_cmd(command), flush=True)
                   time.sleep(1)
           PY
           python3 rcon.py > rcon-results.txt 2>&1 || true

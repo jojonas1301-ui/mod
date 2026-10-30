@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
+import java.util.List;
+
 /**
  * Gera uma pequena vila no Nether: praça de blackstone, muros, lanternas de alma,
  * balcão do banqueiro e aldeões do Nether (banqueiro, ferreiro de ouro e caçador
@@ -35,6 +37,8 @@ public class NetherVillageFeature implements Feature {
 
 	@Override
 	public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
+		com.jonas.villaeconomy.VilaEconomy.LOGGER.info("[Vilas & Câmbio] gerando vila do Nether em {}", pos);
+
 		if (level.isEmptyBlock(pos.below()) || level.isEmptyBlock(pos.below(2))) {
 			return false;
 		}
@@ -103,11 +107,30 @@ public class NetherVillageFeature implements Feature {
 		hut(level, pos.offset(-4, 0, 4), random);
 		hut(level, pos.offset(4, 0, 4), random);
 
-		// moradores
-		spawnVillager(level, pos.offset(0, 0, 1), ModProfessions.BANQUEIRO_NETHER, random);
-		spawnVillager(level, pos.offset(0, 0, -3), ModProfessions.FERREIRO_OURO, random);
-		spawnVillager(level, pos.offset(0, 0, 3), ModProfessions.CACADOR_RELIQUIAS, random);
-		spawnVillager(level, pos.offset(-3, 0, 3), ModProfessions.BANQUEIRO_NETHER, random);
+		// moradores: gerar entidades durante a geração de chunk trava o servidor,
+		// então o spawn é enfileirado para o fim do tick, quando o chunk já está pronto
+		final int villagerLevel = 1 + random.nextInt(3);
+		ServerLevel serverLevel = level.getLevel();
+
+		if (serverLevel != null) {
+			List<BlockPos> bankerPositions = List.of(
+					pos.offset(0, 0, 1),
+					pos.offset(-5, 0, -5),
+					pos.offset(5, 0, 5));
+			List<BlockPos> artisanPositions = List.of(
+					pos.offset(0, 0, -3),
+					pos.offset(0, 0, 3),
+					pos.offset(-3, 0, 3),
+					pos.offset(3, 0, -3));
+
+			serverLevel.getServer().execute(() -> {
+				spawnVillager(serverLevel, bankerPositions, ModProfessions.BANQUEIRO_NETHER, villagerLevel);
+				spawnVillager(serverLevel, artisanPositions, ModProfessions.FERREIRO_OURO, villagerLevel);
+				spawnVillager(serverLevel, artisanPositions, ModProfessions.CACADOR_RELIQUIAS, villagerLevel);
+			});
+		}
+
+		com.jonas.villaeconomy.VilaEconomy.LOGGER.info("[Vilas & Câmbio] vila do Nether pronta em {}", pos);
 		return true;
 	}
 
@@ -135,28 +158,27 @@ public class NetherVillageFeature implements Feature {
 		level.setBlock(center.offset(2, 0, 0), basalt, 2);
 	}
 
-	private void spawnVillager(WorldGenLevel level, BlockPos pos, VillagerProfession profession, RandomSource random) {
-		ServerLevel serverLevel = level.getLevel();
-
-		if (serverLevel == null) {
-			return;
-		}
-
-		var villager = com.jonas.villaeconomy.entity.ModEntityTypes.NETHER_VILLAGER.spawn(serverLevel, pos,
-				EntitySpawnReason.STRUCTURE);
-
-		if (villager == null) {
-			return;
-		}
-
+	private void spawnVillager(ServerLevel serverLevel, List<BlockPos> positions, VillagerProfession profession, int level) {
 		Holder<VillagerProfession> professionHolder = BuiltInRegistries.VILLAGER_PROFESSION.wrapAsHolder(profession);
 		Holder<VillagerType> typeHolder = BuiltInRegistries.VILLAGER_TYPE.wrapAsHolder(ModVillagerTypes.NETHER);
 
-		villager.setVillagerData(villager.getVillagerData()
-				.withType(typeHolder)
-				.withProfession(professionHolder)
-				.withLevel(1 + random.nextInt(3)));
-		villager.setVillagerXp(0);
-		villager.setPersistenceRequired();
+		for (BlockPos pos : positions) {
+			if (!serverLevel.isLoaded(pos)) {
+				continue;
+			}
+
+			var villager = ModEntityTypes.NETHER_VILLAGER.spawn(serverLevel, pos, EntitySpawnReason.STRUCTURE);
+
+			if (villager == null) {
+				continue;
+			}
+
+			villager.setVillagerData(villager.getVillagerData()
+					.withType(typeHolder)
+					.withProfession(professionHolder)
+					.withLevel(level));
+			villager.setVillagerXp(0);
+			villager.setPersistenceRequired();
+		}
 	}
 }
