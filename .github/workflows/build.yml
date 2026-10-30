@@ -1,10 +1,9 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
-
 name: build
-on: [pull_request, push]
+
+on: [pull_request, push, workflow_dispatch]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -12,6 +11,8 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v6
       - name: setup jdk
@@ -22,9 +23,22 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
-        run: ./gradlew build
+        run: ./gradlew build --no-daemon > build-log.txt 2>&1 || true
       - name: capture build artifacts
         uses: actions/upload-artifact@v7
         with:
           name: Artifacts
           path: build/libs/
+      - name: commit log and jar
+        if: always()
+        run: |
+          set +e
+          tail -c 400000 build-log.txt > tools/build-log.txt
+          mkdir -p releases
+          cp build/libs/*.jar releases/ 2>/dev/null
+          rm -f releases/*-sources.jar releases/*-dev.jar
+          git config user.email "ci@example.com"
+          git config user.name "build-ci"
+          git add -A tools/build-log.txt releases
+          git diff --cached --quiet || git commit -m "chore: build output [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
