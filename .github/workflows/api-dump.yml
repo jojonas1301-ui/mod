@@ -18,40 +18,53 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-java@v5
         with:
           java-version: '25'
           distribution: 'microsoft'
       - run: chmod +x ./gradlew
-      - name: resolve classpath
-        run: ./gradlew --no-daemon -q printClasspath > classpath.txt 2>&1 || true
+      - name: compile project (fills gradle caches)
+        run: ./gradlew --no-daemon build > build-log.txt 2>&1 || true
       - name: inspect
         run: |
-          set -x
           mkdir -p tools/dump/javap tools/dump/assets
-          grep '^CP: ' classpath.txt | sed 's/^CP: //' > jars.txt
-          cat jars.txt
-          CP=$(paste -sd: jars.txt)
-          MCJAR=$(grep -i 'minecraft' jars.txt | grep -vi sources | head -1)
-          echo "MCJAR=$MCJAR"
-          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
-          unzip -l "$MCJAR" | grep -E '^.*assets/minecraft/(textures|lang|models)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
-          # fabric api classes
-          for j in $(grep -i 'fabric' jars.txt); do unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' ; done | sort -u > tools/dump/fabric-api-classes.txt
-          # requested javap dumps
-          for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
-            f="tools/dump/javap/$(echo $c | tr '.' '_').txt"
-            javap -p -classpath "$CP" "$c" > "$f" 2>&1 || true
+          find ~/.gradle/caches -name '*.jar' 2>/dev/null | grep -iv 'wrapper' | sort > tools/dump/DEBUG-jars.txt
+          tail -40 build-log.txt > tools/dump/DEBUG-build.txt
+          MCJAR=""
+          for j in $(cat tools/dump/DEBUG-jars.txt); do
+            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then
+              echo "candidate: $j" >> tools/dump/DEBUG-jars.txt
+              case "$j" in
+                *sources*) ;;
+                *) MCJAR="$j" ;;
+              esac
+            fi
           done
-          # vanilla assets we care about
-          unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets || true
-          unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets || true
-          unzip -q -o "$MCJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets || true
+          echo "MCJAR=$MCJAR" >> tools/dump/DEBUG-jars.txt
+          if [ -n "$MCJAR" ]; then
+            unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
+            unzip -l "$MCJAR" | grep -E 'assets/minecraft/(textures|lang|models)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
+            unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets || true
+            unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets || true
+            unzip -q -o "$MCJAR" 'assets/minecraft/textures/item/*' -d tools/dump/assets || true
+            unzip -q -o "$MCJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets || true
+            for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
+              javap -p -classpath "$MCJAR" "$c" > "tools/dump/javap/$(echo $c | tr '.' '_').txt" 2>&1 || true
+            done
+          fi
+          for j in $(grep -i 'fabric-api' tools/dump/DEBUG-jars.txt); do
+            unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' >> tools/dump/fabric-api-classes.txt
+          done
+          sort -u -o tools/dump/fabric-api-classes.txt tools/dump/fabric-api-classes.txt 2>/dev/null || true
           du -sh tools/dump
+          rm -rf tools/dump/assets/minecraft/textures/item/* 2>/dev/null || true
+          find tools/dump -type f | head -50
       - name: commit dump
         run: |
           git config user.email "ci@example.com"
           git config user.name "api-dump-ci"
           git add -A tools/dump
           git diff --cached --quiet || git commit -m "chore: update api dump [skip ci]"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
