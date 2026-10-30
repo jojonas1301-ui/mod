@@ -350,8 +350,7 @@ def generate_trades():
             for index, (wants, wants_count, gives, gives_count, max_uses) in enumerate(offers):
                 trade_id = f"villaeconomy:{profession}/{level}/{index}"
                 values.append(trade_id)
-                write_json(os.path.join(DATA, "villager_trade", profession, str(level),
-                                        f"{index}_{gives.split(':')[1]}.json"), {
+                write_json(os.path.join(DATA, "villager_trade", profession, str(level), f"{index}.json"), {
                     "wants": {"id": wants, "count": wants_count},
                     "gives": {"id": gives, "count": gives_count},
                     "max_uses": max_uses,
@@ -370,7 +369,7 @@ def generate_trades():
 
 # --------------------------------------------------------------------------- worldgen
 def generate_worldgen():
-    write_json(os.path.join(DATA, "worldgen", "configured_feature", "nether_village.json"),
+    write_json(os.path.join(DATA, "worldgen", "feature", "nether_village.json"),
                {"type": "villaeconomy:nether_village"})
     write_json(os.path.join(DATA, "worldgen", "placed_feature", "nether_village.json"), {
         "feature": "villaeconomy:nether_village",
