@@ -1,0 +1,4 @@
+# one class per line, javap -p signature dump will be written to tools/dump/javap/
+net.minecraft.core.registries.Registries
+net.minecraft.core.registries.BuiltInRegistries
+net.minecraft.resources.Identifier

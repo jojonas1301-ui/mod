@@ -4,7 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches: [ 'arena/**' ]
-    paths: [ '.github/workflows/api-dump.yml', 'build.gradle', 'gradle.properties' ]
+    paths:
+      - '.github/workflows/api-dump.yml'
+      - 'build.gradle'
+      - 'gradle.properties'
+      - 'tools/dump-request.txt'
+
+permissions:
+  contents: write
 
 jobs:
   dump:
@@ -20,24 +27,31 @@ jobs:
         run: ./gradlew --no-daemon -q printClasspath > classpath.txt 2>&1 || true
       - name: inspect
         run: |
-          cat classpath.txt | head -50
-          mkdir -p dump
+          set -x
+          mkdir -p tools/dump/javap tools/dump/assets
           grep '^CP: ' classpath.txt | sed 's/^CP: //' > jars.txt
           cat jars.txt
           CP=$(paste -sd: jars.txt)
-          echo "$CP" > cp.txt
-          MCJAR=$(grep -i 'minecraft' jars.txt | grep -v sources | head -1)
+          MCJAR=$(grep -i 'minecraft' jars.txt | grep -vi sources | head -1)
           echo "MCJAR=$MCJAR"
-          unzip -l "$MCJAR" | head -40 > dump/jar-list-head.txt
-          unzip -l "$MCJAR" | grep -c '\.class' > dump/classcount.txt || true
-          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > dump/classes.txt
-          unzip -l "$MCJAR" | grep -E '\.(png|json|ogg)$' | awk '{print $4}' | sort > dump/assets.txt || true
-          mkdir -p dump/assets && unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' 'assets/minecraft/textures/item/*' 'assets/minecraft/lang/en_us.json' -d dump/assets || true
-          for c in net.minecraft.resources.Identifier net.minecraft.core.registries.Registries net.minecraft.core.registries.BuiltInRegistries; do
-            javap -p -classpath "$CP" "$c" >> dump/key.txt 2>&1 || true
+          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
+          unzip -l "$MCJAR" | grep -E '^.*assets/minecraft/(textures|lang|models)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
+          # fabric api classes
+          for j in $(grep -i 'fabric' jars.txt); do unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' ; done | sort -u > tools/dump/fabric-api-classes.txt
+          # requested javap dumps
+          for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
+            f="tools/dump/javap/$(echo $c | tr '.' '_').txt"
+            javap -p -classpath "$CP" "$c" > "$f" 2>&1 || true
           done
-          ls -R dump | head -50
-      - uses: actions/upload-artifact@v7
-        with:
-          name: api-dump
-          path: dump/
+          # vanilla assets we care about
+          unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets || true
+          unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets || true
+          unzip -q -o "$MCJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets || true
+          du -sh tools/dump
+      - name: commit dump
+        run: |
+          git config user.email "ci@example.com"
+          git config user.name "api-dump-ci"
+          git add -A tools/dump
+          git diff --cached --quiet || git commit -m "chore: update api dump [skip ci]"
+          git push
