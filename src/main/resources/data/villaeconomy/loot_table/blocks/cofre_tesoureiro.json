@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "villaeconomy:blocks/cofre_tesoureiro",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "villaeconomy:cofre_tesoureiro"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

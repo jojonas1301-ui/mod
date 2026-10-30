@@ -65,6 +65,9 @@ jobs:
             unzip -q -o "$ASSETJAR" 'assets/minecraft/textures/item/emerald.png' -d tools/dump/assets
             unzip -q -o "$ASSETJAR" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
             unzip -q -o "$ASSETJAR" 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/recipe/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/worldgen/placed_feature/*' -d tools/dump/assets
+            unzip -q -o "$ASSETJAR" 'data/minecraft/worldgen/configured_feature/*' -d tools/dump/assets
           fi
           for j in $(cat jars.txt); do
             unzip -l "$j" 2>/dev/null | grep -iE 'data/minecraft/.*(trade|barter)' | awk '{print $4}' >> tools/dump/data-trade-list.txt

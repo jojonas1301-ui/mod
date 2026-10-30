@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "QBQ",
+    "BBB"
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "B": "minecraft:polished_blackstone"
+  },
+  "result": {
+    "id": "villaeconomy:totem_reliquias",
+    "count": 1
+  }
+}

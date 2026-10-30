@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "minecraft:gold_block",
+    "count": 5
+  },
+  "gives": {
+    "id": "minecraft:nether_star",
+    "count": 1
+  },
+  "max_uses": 2,
+  "xp": 5,
+  "reputation_discount": 0.05
+}

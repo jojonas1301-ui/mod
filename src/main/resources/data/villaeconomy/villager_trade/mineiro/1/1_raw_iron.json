@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "villaeconomy:nota10",
+    "count": 3
+  },
+  "gives": {
+    "id": "minecraft:raw_iron",
+    "count": 3
+  },
+  "max_uses": 16,
+  "xp": 1,
+  "reputation_discount": 0.05
+}

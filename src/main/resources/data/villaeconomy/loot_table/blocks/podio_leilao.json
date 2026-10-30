@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "villaeconomy:blocks/podio_leilao",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "villaeconomy:podio_leilao"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

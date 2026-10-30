@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "villaeconomy:blocks/mesa_mineracao",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "villaeconomy:mesa_mineracao"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

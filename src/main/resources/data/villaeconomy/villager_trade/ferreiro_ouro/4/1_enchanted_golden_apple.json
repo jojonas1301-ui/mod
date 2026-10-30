@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "minecraft:gold_ingot",
+    "count": 12
+  },
+  "gives": {
+    "id": "minecraft:enchanted_golden_apple",
+    "count": 1
+  },
+  "max_uses": 5,
+  "xp": 4,
+  "reputation_discount": 0.05
+}

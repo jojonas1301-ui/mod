@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    " B ",
+    "SSS"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:bookshelf",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "villaeconomy:podio_leilao",
+    "count": 1
+  }
+}

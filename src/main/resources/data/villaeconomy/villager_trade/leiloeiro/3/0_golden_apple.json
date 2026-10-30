@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "villaeconomy:nota200",
+    "count": 1
+  },
+  "gives": {
+    "id": "minecraft:golden_apple",
+    "count": 2
+  },
+  "max_uses": 8,
+  "xp": 3,
+  "reputation_discount": 0.05
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "villaeconomy:blocks/totem_reliquias",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "villaeconomy:totem_reliquias"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

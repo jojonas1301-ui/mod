@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GEG",
+    "SSS"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "E": "minecraft:emerald",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "villaeconomy:balcao_banqueiro",
+    "count": 1
+  }
+}

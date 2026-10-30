@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "villaeconomy:nota50",
+    "count": 2
+  },
+  "gives": {
+    "id": "minecraft:saddle",
+    "count": 1
+  },
+  "max_uses": 8,
+  "xp": 2,
+  "reputation_discount": 0.05
+}

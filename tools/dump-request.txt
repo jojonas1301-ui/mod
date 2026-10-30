@@ -121,3 +121,11 @@ net.fabricmc.fabric.api.loot.v3.LootTableEvents$Modify
 net.fabricmc.fabric.api.loot.v3.FabricLootPoolBuilder
 net.fabricmc.fabric.api.registry.VillagerInteractionRegistries
 net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents
+net.minecraft.world.level.chunk.ChunkGenerator
+net.minecraft.world.level.LevelAccessor
+net.minecraft.world.level.ServerLevelAccessor
+net.minecraft.world.entity.EntitySpawnRequest
+net.minecraft.world.entity.PostSpawnProcessor
+net.minecraft.world.item.trading.MerchantOffers
+net.minecraft.world.entity.npc.villager.VillagerProfession
+net.minecraft.world.level.block.LanternBlock

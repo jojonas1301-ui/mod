@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "minecraft:gold_block",
+    "count": 1
+  },
+  "gives": {
+    "id": "villaeconomy:nota100",
+    "count": 4
+  },
+  "max_uses": 8,
+  "xp": 3,
+  "reputation_discount": 0.05
+}
