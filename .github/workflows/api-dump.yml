@@ -66,6 +66,13 @@ jobs:
             unzip -q -o "$ASSETJAR" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
             unzip -q -o "$ASSETJAR" 'data/minecraft/tags/villager_trade/*' -d tools/dump/assets
           fi
+          for j in $(cat jars.txt); do
+            unzip -l "$j" 2>/dev/null | grep -iE 'data/minecraft/.*(trade|barter)' | awk '{print $4}' >> tools/dump/data-trade-list.txt
+          done
+          sort -u -o tools/dump/data-trade-list.txt tools/dump/data-trade-list.txt
+          for j in $(cat jars.txt); do
+            unzip -q -o "$j" 'data/minecraft/trade_set/*' 'data/minecraft/villager_trade/*' 'data/minecraft/tags/villager_trade/*' 'data/minecraft/loot_table/*piglin*' -d tools/dump/data 2>/dev/null
+          done
           for j in $(grep -i 'fabric' jars.txt | grep -vi loom); do
             unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' >> tools/dump/fabric-api-classes.txt
           done
