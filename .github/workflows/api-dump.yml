@@ -33,38 +33,41 @@ jobs:
           mkdir -p tools/dump/javap tools/dump/assets
           exec > >(tee -a tools/dump/DEBUG-inspect.txt) 2>&1
           set -x
-          mkdir -p tools/dump/javap tools/dump/assets
-          find ~/.gradle/caches -name '*.jar' 2>/dev/null | grep -iv 'wrapper' | sort > tools/dump/DEBUG-jars.txt
-          tail -40 build-log.txt > tools/dump/DEBUG-build.txt
+          tail -60 build-log.txt > tools/dump/DEBUG-build.txt
+          find ~/.gradle/caches -name '*.jar' 2>/dev/null | grep -iv wrapper | sort > raw-jars.txt
+          grep -v 'sources' raw-jars.txt > jars.txt
           MCJAR=""
-          for j in $(cat tools/dump/DEBUG-jars.txt); do
-            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then
-              echo "candidate: $j" >> tools/dump/DEBUG-jars.txt
-              case "$j" in
-                *sources*) ;;
-                *) MCJAR="$j" ;;
-              esac
-            fi
+          CLIENTJAR=""
+          for j in $(cat jars.txt); do
+            if unzip -l "$j" 2>/dev/null | grep -q 'net/minecraft/world/item/Item.class'; then MCJAR="$j"; fi
+            if unzip -l "$j" 2>/dev/null | grep -q 'assets/minecraft/lang/en_us.json'; then CLIENTJAR="$j"; fi
           done
-          echo "MCJAR=$MCJAR" >> tools/dump/DEBUG-jars.txt
-          if [ -n "$MCJAR" ]; then
-            unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
-            unzip -l "$MCJAR" | grep -E 'assets/minecraft/(textures|lang|models)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
-            unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets || true
-            unzip -q -o "$MCJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets || true
-            unzip -q -o "$MCJAR" 'assets/minecraft/textures/item/*' -d tools/dump/assets || true
-            unzip -q -o "$MCJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets || true
-            for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
-              javap -p -classpath "$MCJAR" "$c" > "tools/dump/javap/$(echo $c | tr '.' '_').txt" 2>&1 || true
-            done
+          CP="$MCJAR"
+          for j in $(grep -i 'fabric' jars.txt | grep -vi 'loom'); do CP="$CP:$j"; done
+          echo "MCJAR=$MCJAR"; echo "CLIENTJAR=$CLIENTJAR"; echo "CP=$CP" > tools/dump/DEBUG-cp.txt
+          unzip -l "$MCJAR" | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | sort > tools/dump/mc-classes.txt
+          for c in $(cat tools/dump-request.txt | tr -d '\r' | grep -v '^#' | grep -v '^$'); do
+            javap -p -classpath "$CP" "$c" > "tools/dump/javap/$(echo $c | tr '.' '_').txt" 2>&1
+          done
+          if [ -n "$CLIENTJAR" ]; then
+            unzip -l "$CLIENTJAR" | grep -E 'assets/minecraft/(textures|lang|models|items)' | awk '{print $4}' | sort > tools/dump/mc-assets.txt
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/entity/villager/*' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/entity/piglin/*' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/lang/en_us.json' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/items/paper.json' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/models/item/paper.json' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/items/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/models/item/gold_ingot.json' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/paper.png' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/gold_ingot.png' -d tools/dump/assets
+            unzip -q -o "$CLIENTJAR" 'assets/minecraft/textures/item/emerald.png' -d tools/dump/assets
           fi
-          for j in $(grep -i 'fabric-api' tools/dump/DEBUG-jars.txt); do
+          for j in $(grep -i 'fabric' jars.txt | grep -vi loom); do
             unzip -l "$j" 2>/dev/null | grep '\.class' | awk '{print $4}' | sed 's#/#.#g;s#\.class$##' | grep -E '^net\.fabricmc\.fabric\.api' >> tools/dump/fabric-api-classes.txt
           done
-          sort -u -o tools/dump/fabric-api-classes.txt tools/dump/fabric-api-classes.txt 2>/dev/null || true
+          sort -u -o tools/dump/fabric-api-classes.txt tools/dump/fabric-api-classes.txt
           du -sh tools/dump
-          rm -rf tools/dump/assets/minecraft/textures/item/* 2>/dev/null || true
-          find tools/dump -type f | head -50
+          find tools/dump -type f | wc -l
       - name: commit dump
         if: always()
         run: |
