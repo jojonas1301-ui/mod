@@ -1,0 +1,133 @@
+name: server-test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ 'arena/**' ]
+    paths:
+      - 'src/main/java/**'
+      - 'src/main/resources/data/**'
+      - 'src/main/resources/assets/**'
+      - '.github/workflows/server-test.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  server:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+      - run: chmod +x ./gradlew
+      - name: prepare run dir
+        run: |
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+          cat > run/server.properties <<'EOF'
+          online-mode=false
+          level-seed=1234567890
+          level-name=world
+          enable-rcon=true
+          rcon.password=test123
+          rcon.port=25575
+          broadcast-rcon-to-ops=false
+          sync-chunk-writes=false
+          max-tick-time=-1
+          spawn-protection=0
+          view-distance=6
+          simulation-distance=4
+          motd=VilasECambio test
+          EOF
+      - name: start server
+        run: |
+          nohup ./gradlew runServer --no-daemon --console=plain > server-log.txt 2>&1 &
+          for i in $(seq 1 120); do
+            if grep -q 'RCON running on' server-log.txt; then echo "rcon up"; break; fi
+            if grep -qE 'Exception|error|FAILURE' server-log.txt; then echo "possible error"; fi
+            sleep 5
+          done
+          tail -60 server-log.txt
+      - name: run rcon tests
+        run: |
+          cat > rcon.py <<'PY'
+          import socket, struct, sys, time
+
+          class Rcon:
+              def __init__(self, host, port, password):
+                  self.sock = socket.create_connection((host, port), timeout=30)
+                  self.sock.settimeout(30)
+                  self.rid = 1
+                  self.send(3, password)
+                  self.recv()
+
+              def send(self, kind, body):
+                  payload = struct.pack('<ii', self.rid, kind) + body.encode('utf8') + b'\x00\x00'
+                  self.sock.sendall(struct.pack('<i', len(payload)) + payload)
+                  self.rid += 1
+
+              def recv(self):
+                  raw = self.sock.recv(4)
+                  if len(raw) < 4:
+                      return ''
+                  length = struct.unpack('<i', raw)[0]
+                  data = b''
+                  while len(data) < length:
+                      chunk = self.sock.recv(length - len(data))
+                      if not chunk:
+                          break
+                      data += chunk
+                  return data[8:].decode('utf8', 'replace')
+
+              def cmd(self, command):
+                  self.send(2, command)
+                  return self.recv()
+
+          if __name__ == '__main__':
+              rcon = Rcon('127.0.0.1', 25575, 'test123')
+              commands = [
+                  'gamerule sendCommandFeedback true',
+                  'summon villaeconomy:nether_villager 0 80 0',
+                  'data get entity @e[type=villaeconomy:nether_villager,limit=1]',
+                  'setblock 0 80 0 villaeconomy:balcao_nether',
+                  'setblock 2 80 0 villaeconomy:forja_ouro',
+                  'give @a villaeconomy:nota100',
+                  'execute in minecraft:the_nether run place feature villaeconomy:nether_village 0 70 0',
+                  'data get entity @e[type=villaeconomy:nether_villager,limit=1] VillagerData',
+                  'execute in minecraft:overworld run summon minecraft:villager 0 80 0',
+                  'data merge entity @e[type=minecraft:villager,limit=1] {VillagerData:{profession:"villaeconomy:banqueiro",level:1,type:"minecraft:plains"}}',
+                  'data get entity @e[type=minecraft:villager,limit=1] VillagerData',
+                  'time set day',
+                  'stop',
+              ]
+              for command in commands:
+                  if command.startswith('give'):
+                      continue
+                  print('>>>', command, flush=True)
+                  print(rcon.cmd(command), flush=True)
+                  time.sleep(1)
+          PY
+          python3 rcon.py > rcon-results.txt 2>&1 || true
+          cat rcon-results.txt
+          sleep 15
+          tail -40 server-log.txt | tee server-tail.txt
+      - name: commit logs
+        if: always()
+        run: |
+          set +e
+          tail -c 400000 server-log.txt > tools/server-log.txt
+          cp rcon-results.txt tools/rcon-results.txt 2>/dev/null
+          git config user.email "ci@example.com"
+          git config user.name "server-test-ci"
+          git add -A tools/server-log.txt tools/rcon-results.txt
+          git diff --cached --quiet || git commit -m "chore: server test logs [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase -q origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }} && break
+            sleep 5
+          done
